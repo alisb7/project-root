@@ -1,36 +1,32 @@
-# OS junk files
+# Ignore system files
 .DS_Store
 Thumbs.db
 
-# Environment / secrets
+# Ignore secrets
 .env
 
-# Composer
+# Composer dependencies
 /vendor/
 /composer.lock
 
-# Node / frontend stuff (if you use npm later)
+# Node / frontend (if used)
 /node_modules/
 /package-lock.json
-/.pnp
-.pnp.js
 
-# Logs & backups
-/storage/logs/
-/storage/backups/
-*.log
+# Logs & backups (but keep folders themselves)
+/storage/logs/*
+!/storage/logs/.gitkeep
+/storage/backups/*
+!/storage/backups/.gitkeep
 
-# Cache / sessions
+# Cache / IDE junk
 /tmp/
-.cache/
-.idea/
-.vscode/
+/.cache/
+/.idea/
+/.vscode/
 
-# PHPUnit
-/phpunit.xml
+# PHPUnit cache
 .phpunit.result.cache
 /tests/_output/
 
-# System files
-*.swp
-*.swo
+# Don’t ignore app, config, public, tests, storage structure
