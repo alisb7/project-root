@@ -53,6 +53,17 @@ switch ($route) {
     case 'logout':
         $auth->logout();
         break;
+        case 'about':
+    render_view('about.php');
+    break;
+    case 'contact':
+    render_view('contact.php');
+    break;
+
+case 'contact.submit':
+    (new App\Controllers\ContactController())->submit();
+    break;
+
 
     // Role dashboards
     case 'admin.dashboard':
