@@ -1,0 +1,36 @@
+# OS junk files
+.DS_Store
+Thumbs.db
+
+# Environment / secrets
+.env
+
+# Composer
+/vendor/
+/composer.lock
+
+# Node / frontend stuff (if you use npm later)
+/node_modules/
+/package-lock.json
+/.pnp
+.pnp.js
+
+# Logs & backups
+/storage/logs/
+/storage/backups/
+*.log
+
+# Cache / sessions
+/tmp/
+.cache/
+.idea/
+.vscode/
+
+# PHPUnit
+/phpunit.xml
+.phpunit.result.cache
+/tests/_output/
+
+# System files
+*.swp
+*.swo
