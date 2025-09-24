@@ -1,0 +1,11 @@
+{
+  "name": "alisb/web-info-system",
+  "description": "School Web Information System project",
+  "type": "project",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  }
+}
