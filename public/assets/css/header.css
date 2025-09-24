@@ -1,0 +1,36 @@
+.topbar{
+  position:sticky; top:0; z-index:100;
+  background:rgba(17,24,39,.7); backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.topbar-inner{display:flex;align-items:center;gap:16px;padding:12px 0}
+.brand{
+  text-decoration:none; color:var(--text); font-weight:900; letter-spacing:.2px; font-size:1.3rem;
+}
+.brand b{color:var(--primary)}
+.nav{display:flex;gap:18px}
+.nav a{color:var(--text-dim);text-decoration:none;font-weight:600}
+.nav a:hover{color:var(--primary)}
+.spacer{flex:1}
+.login-btn{white-space:nowrap}
+
+/* Hamburger controls */
+.nav-toggle{display:none}
+.nav-burger{display:none; width:34px; height:28px; cursor:pointer}
+.nav-burger span{display:block; height:3px; margin:5px 0; background:var(--text); border-radius:2px; transition:.2s}
+
+/* Mobile layout */
+@media (max-width: 860px){
+  .nav{position:absolute; right:20px; top:58px; background:var(--surface);
+       border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:12px; 
+       display:none; flex-direction:column; min-width:180px; box-shadow:var(--shadow)}
+  .nav a{padding:8px 6px}
+  .nav-burger{display:block}
+  .spacer{display:none}
+  /* show menu when checked */
+  .nav-toggle:checked ~ .nav{display:flex}
+  /* animate burger */
+  .nav-toggle:checked + .nav-burger span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+  .nav-toggle:checked + .nav-burger span:nth-child(2){opacity:0}
+  .nav-toggle:checked + .nav-burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+}

@@ -1,0 +1,10 @@
+.footer{
+  margin-top:auto;
+  border-top:1px solid rgba(255,255,255,.08);
+  background:rgba(17,24,39,.7);
+}
+.footer-inner{padding:20px 0; text-align:center}
+.footer .sub{font-size:.9rem; color:var(--text-dim); margin:6px 0}
+.foot-nav{margin-top:8px}
+.foot-nav a{color:var(--text-dim); text-decoration:none; margin:0 8px}
+.foot-nav a:hover{color:var(--primary)}

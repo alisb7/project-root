@@ -3,51 +3,64 @@ namespace App\Controllers;
 
 use App\Core\Session;
 use App\Core\Auth;
+use App\Core\Url;      // base-safe URLs & redirects
 use App\Models\User;
 
-class AuthController {
-    public function showLogin(): void {
+class AuthController
+{
+    public function showLogin(): void
+    {
         $csrf = Session::csrfToken();
-        require dirname(__DIR__,1)."/views/auth/login.php";
+        // renders app/views/auth/login.php
+        require dirname(__DIR__, 1) . '/views/auth/login.php';
     }
 
-    public function login(): void {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !Session::verifyCsrf($_POST['_csrf'] ?? null)) {
-            http_response_code(400); exit('Bad request');
+    public function login(): void
+    {
+        // Basic request & CSRF guard
+        if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST' || !Session::verifyCsrf($_POST['_csrf'] ?? null)) {
+            http_response_code(400);
+            exit('Bad request');
         }
-        $email = trim($_POST['email'] ?? '');
+
+        $email    = trim($_POST['email'] ?? '');
         $password = $_POST['password'] ?? '';
 
+        // Look up user
         $user = $email ? User::findByEmail($email) : null;
-        if (!$user || !password_verify($password, $user['password_hash'])) {
-            Session::flash('error','Invalid credentials');
-            header('Location: /public/index.php?route=login'); exit;
-        }
-        // Success → single identity per session:
-        Auth::login($user);
-        User::updateLastLogin($user['id']);
 
-        // role-based landing:
-        $role = $user['role'];
-        switch ($role) {
+        // Invalid creds → flash + redirect back to login
+        if (!$user || !password_verify($password, $user['password_hash'])) {
+            Session::flash('error', 'Invalid credentials');
+            Url::redirect('index.php?route=login');
+        }
+
+        // Success → bind identity to session
+        Auth::login($user);
+        User::updateLastLogin((int)$user['id']);
+
+        // Role-based landing (relative to base)
+        switch ($user['role']) {
             case 'admin':
-                $dest = '/public/index.php?route=admin.dashboard';
+                $dest = 'index.php?route=admin.dashboard';
                 break;
             case 'lecturer':
-                $dest = '/public/index.php?route=lecturer.dashboard';
+                $dest = 'index.php?route=lecturer.dashboard';
                 break;
             case 'student':
-                $dest = '/public/index.php?route=student.dashboard';
+                $dest = 'index.php?route=student.dashboard';
                 break;
             default:
-                $dest = '/public/index.php';
+                $dest = 'index.php?route=login';
                 break;
         }
-        header("Location: $dest"); exit;
+
+        Url::redirect($dest);
     }
 
-    public function logout(): void {
+    public function logout(): void
+    {
         Auth::logout();
-        header('Location: /public/index.php?route=login'); exit;
+        Url::redirect('index.php?route=login');
     }
 }
