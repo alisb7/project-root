@@ -1,0 +1,128 @@
+:root{
+  --admin-sidebar-w: 260px;
+  --topbar-h: 56px;
+}
+
+/* ---------- Topbar ---------- */
+.admin-topbar{
+  position: sticky; top:0; z-index: 60;
+  height: var(--topbar-h);
+  display:flex; align-items:center; gap:12px;
+  padding: 0 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border-bottom:1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(6px);
+}
+.icon-btn{
+  display:inline-grid; place-items:center;
+  width:40px; height:40px; border-radius:12px;
+  background: var(--card); color: var(--text);
+  border:1px solid rgba(255,255,255,.08);
+  cursor:pointer; transition: transform .15s ease, background .2s;
+}
+.icon-btn:hover{ transform: translateY(-2px); }
+
+.admin-brand{
+  display:flex; align-items:center; gap:8px;
+  text-decoration:none; color:var(--text);
+  font-weight:800; letter-spacing:.2px;
+}
+.logo-dot{ width:9px; height:9px; border-radius:50%; background:var(--primary); display:inline-block; }
+.brand-sub{ color:var(--text-dim); font-weight:600; margin-left:2px; }
+
+.admin-top-actions{ margin-left:auto; display:flex; align-items:center; gap:10px; }
+.admin-user{ display:flex; align-items:center; gap:8px; }
+.admin-user .avatar{
+  width:28px; height:28px; border-radius:50%;
+  display:inline-grid; place-items:center;
+  background: #0ea5b09a; color:#022; font-weight:800;
+}
+.admin-user .name{ color:var(--text); font-weight:600; font-size:.95rem; }
+.btn-logout{
+  padding:8px 12px; border-radius:var(--radius); text-decoration:none;
+  background: #16b6d6; color:#012; font-weight:800; border:none;
+}
+.btn-logout:hover{ filter: brightness(1.05); }
+
+/* ---------- Shell Layout ---------- */
+.admin-shell{
+  display:flex; min-height: calc(100vh - var(--topbar-h));
+}
+
+/* Sidebar desktop */
+.admin-sidebar{
+  position: sticky; top: var(--topbar-h);
+  width: var(--admin-sidebar-w);
+  min-height: calc(100vh - var(--topbar-h));
+  background: var(--card);
+  border-right:1px solid rgba(255,255,255,.08);
+  padding: 14px 12px;
+}
+.sidebar-head{
+  display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;
+}
+.sidebar-head .title{ font-weight:700; color:var(--text-dim); }
+.sidebar-head .js-admin-close{ display:none; }
+
+.sidebar-nav{ display:flex; flex-direction:column; gap:6px; }
+.sidebar-nav .item{
+  display:flex; align-items:center; gap:10px;
+  padding:10px 10px; border-radius:12px;
+  color:var(--text); text-decoration:none;
+  border:1px solid rgba(255,255,255,.06);
+  background: rgba(255,255,255,.02);
+  transition: transform .12s ease, background .2s, border-color .2s;
+}
+.sidebar-nav .item .ico{ width:20px; text-align:center; opacity:.85; }
+.sidebar-nav .item:hover{ transform: translateX(3px); border-color: rgba(255,255,255,.12); }
+.sidebar-nav .item.active{ background: var(--primary); color:#002; border-color:transparent; font-weight:800; }
+
+.sidebar-foot{ margin-top:12px; color:var(--text-dim); text-align:center; }
+
+/* Content area */
+.admin-content{ flex:1; min-width:0; padding: 18px; }
+
+/* ---------- Off-canvas for <= 992px ---------- */
+@media (max-width: 992px){
+  .admin-shell{ position:relative; }
+  .admin-sidebar{
+    position: fixed; top: var(--topbar-h); left:0;
+    height: calc(100vh - var(--topbar-h));
+    transform: translateX(-110%);
+    transition: transform .25s ease;
+    box-shadow: var(--shadow);
+    z-index: 70;
+  }
+  .admin-sidebar.open{ transform: translateX(0); }
+  .sidebar-head .js-admin-close{ display:inline-grid; }
+  .admin-scrim{
+    position: fixed; inset:0; background: rgba(0,0,0,.45);
+    z-index: 65;
+  }
+}
+
+/* ---------- Stack sidebar to top for very small screens ---------- */
+@media (max-width: 560px){
+  .admin-sidebar{
+    width: 100%;
+    border-right: none;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+}
+.admin-top-nav {
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;
+  margin-right: 1.5rem;
+}
+
+.top-nav-item {
+  font-size: 1.2rem;
+  line-height: 1;
+  text-decoration: none;
+  color: var(--text);
+  transition: color 0.2s;
+}
+.top-nav-item:hover {
+  color: var(--primary);
+}
